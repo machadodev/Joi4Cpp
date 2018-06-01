@@ -1,12 +1,15 @@
-##JOI para C++ [MVP]
-<br>
+# JOI para C++ [MVP]
+---
+
 
 > Um simples* header-only* validador de *inputs* feito inspirado no [JOI](https://github.com/hapijs/joi "JOI") do NodeJS. 
 Foi utilizado o **Builder Design Pattern** para organização do projeto.
 
 O validador trabalha somente na validação de variáveis, mas futuramente pretendo implementar validação de classes/estruturas para se aproximar mais de como é o **JOI** no *javascript*. 
-<br>
-#####Validação de String 
+
+
+
+##### Validação de String 
 
 	JoiString schema = JoiString::build().alphanum().maximum(32).required();
 	JoiResult result = JoiString::validate(input, &schema);
@@ -18,12 +21,10 @@ Para verificar se houve algum erro, basta consultar o resultado do *validate*
 	if(result.error())
 		cout << result.description() << endl;
 
-<br>
-------------
+---
 
 
-
-#####Validação de um Inteiro 
+##### Validação de um Inteiro 
 
 	JoiNumber schema = JoiNumber::build().minimum(50).maximum(100);
 	JoiResult result = JoiNumber::validate(value, &schema);
@@ -35,6 +36,7 @@ Para verificar se houve algum erro, basta consultar o resultado do *validate*
 	if(result.error())
 		cout << result.description() << endl;
 
-<br>
-**Bye bye ;~)**
+
+
+** Bye bye ;~) **
 
