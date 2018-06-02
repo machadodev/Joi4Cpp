@@ -9,8 +9,8 @@ O validador ainda está em fases de testes. Faça um pull request caso encontre 
 
 ##### Validações
 
-int main()
-{
+	int main()
+	{
 	// C++ 11 struct initialization
 	struct Model
 	{
