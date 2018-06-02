@@ -5,36 +5,40 @@
 > Um simples* header-only* validador de *inputs* feito inspirado no [JOI](https://github.com/hapijs/joi "JOI") do NodeJS. 
 Foi utilizado o **Builder Design Pattern** para organização do projeto.
 
-O validador trabalha somente na validação de variáveis, mas futuramente pretendo implementar validação de classes/estruturas para se aproximar mais de como é o **JOI** no *javascript*. 
+O validador ainda está em fases de testes. Faça um pull request caso encontre algum erro ;).
 
+##### Validações
 
+int main()
+{
+	// C++ 11 struct initialization
+	struct Model
+	{
+		int id = 10;
+		char name[32] = { "Leonardo" };
+		int age = 18;
+		char email[50] = { "leonardo@gmail.com" };
+	} model;
 
-##### Validação de String 
+	struct Schema
+	{
+		JoiNumber id = JoiNumber::build().positive().less(100);
+		JoiString name = JoiString::build().pattern("[A-Z][a-z]+").maximum(31).required();
+		JoiNumber age = JoiNumber::build().minimum(18).maximum(65);
+		JoiString email = JoiString::build().pattern("^\\S+@\\S+$").maximum(49);
+	} schema;
 
-	JoiString schema = JoiString::build().alphanum().maximum(32).required();
-	JoiResult result = JoiString::validate(input, &schema);
+	JoiResult validation = Joi::validate(Joi::key(model.id, schema.id),
+					     Joi::key(model.name, schema.name),
+					     Joi::key(model.age, schema.age));
 
-*input* não pode ser vazio, deve ter no máximo 32 caracteres e só pode ser alfanumérico.
+	if(validation.error())
+		cout << validation.description() << endl;
+	else
+		cout << "All good ~;)" << endl;
 
-Para verificar se houve algum erro, basta consultar o resultado do *validate*
-
-	if(result.error())
-		cout << result.description() << endl;
-
----
-
-
-##### Validação de um Inteiro 
-
-	JoiNumber schema = JoiNumber::build().minimum(50).maximum(100);
-	JoiResult result = JoiNumber::validate(value, &schema);
-
-*value* deve atender ao intervalo [50, 100]
-
-Para verificar se houve algum erro, basta consultar o resultado do *validate*
-
-	if(result.error())
-		cout << result.description() << endl;
+	return 0;
+}
 
 
 
